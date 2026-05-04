@@ -36,7 +36,7 @@ Requires Java 21+.
 
 ## Gameplay
 
-Each level is a grid of 40×26 tiles at 32 px each (1280×832 px). The mouse starts at the green **Start** tile and must reach the gold **End** tile to complete the level.
+Each level is a grid of 40×24 tiles at 32 px each (1280×768 px). The mouse starts at the green **Start** tile and must reach the gold **End** tile to complete the level.
 
 Letter tiles are scattered across the level. Walking through one adds it to your letter bank (shown in the HUD). When your collected letters can spell a power word, it activates automatically:
 
@@ -60,8 +60,8 @@ Progress is saved automatically. Beating a level unlocks the next one in Level S
 
 | Level | Difficulty | Description |
 |-------|-----------|-------------|
-| 1 | Intro | Ground path with two spike obstacles; optional upper platforms hold **JUMP** and **LIFE** letters |
-| 2 | Medium | Platform jumping required to reach the exit; **SPEED** and **JUMP** letter sets; mid-air spike traps |
+| 1 | Intro | Ground path with 2 snake enemies; optional upper platforms hold **JUMP** and **LIFE** letters |
+| 2 | Medium | Platform jumping required to reach the exit; **SPEED** and **JUMP** letter sets; mid-air spike traps; 3 snake enemies |
 | 3 | Hard | Destructible block barriers require **GROW** power; dense spike fields; 4 enemies |
 
 ---

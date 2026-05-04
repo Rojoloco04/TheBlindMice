@@ -159,7 +159,15 @@ public class GamePanel extends JPanel {
 
         if (currentMouseSprite != null && player != null) {
             Coordinate pos = player.getPos();
-            g2.drawImage(currentMouseSprite, (int) pos.getX(), (int) pos.getY(), SPRITE_SIZE, SPRITE_SIZE, null);
+            int drawSize = player.getWidth() == PlayerEntity.DEFAULT_WIDTH
+                ? SPRITE_SIZE
+                : SPRITE_SIZE * 3 / 2;
+            int hitboxCenterX = (int) pos.getX() + PlayerEntity.HITBOX_OFFSET_X + player.getWidth() / 2;
+            int hitboxBottom  = (int) pos.getY() + PlayerEntity.HITBOX_OFFSET_Y + player.getHeight();
+            int footMargin    = SPRITE_SIZE - PlayerEntity.DEFAULT_HEIGHT - PlayerEntity.HITBOX_OFFSET_Y;
+            int drawX = hitboxCenterX - drawSize / 2;
+            int drawY = hitboxBottom  - drawSize + footMargin;
+            g2.drawImage(currentMouseSprite, drawX, drawY, drawSize, drawSize, null);
         }
 
         if (enemySprite != null && enemies != null) {

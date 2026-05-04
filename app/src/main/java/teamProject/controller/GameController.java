@@ -25,7 +25,7 @@ import teamProject.util.SaveManager;
 public class GameController {
     private enum WordPower { GROW, SMALL, SPEED, JUMP, LIFE }
 
-    private static final int POWER_DURATION_TICKS = 300;
+    private static final int POWER_DURATION_TICKS = 900;
     private static final long NS_PER_DECISECOND = 100_000_000L; // nanoseconds per 0.1 second
     private static final long NS_PER_MS = 1_000_000L;
 
@@ -211,8 +211,9 @@ public class GameController {
 
         if (!gameEnded && player.isDead()) {
             gameEnded = true;
-            SaveManager.saveHighScore(game.getScore());
-            listener.onGameOver(game.getScore());
+            long deathScore = game.getScore() / 2;
+            SaveManager.saveHighScore(deathScore);
+            listener.onGameOver(deathScore);
         }
     }
 

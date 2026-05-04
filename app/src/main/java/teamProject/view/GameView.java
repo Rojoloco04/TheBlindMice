@@ -79,6 +79,7 @@ public class GameView extends JFrame implements KeyListener, GameEventListener {
         container.add(pausePanel, "PAUSE");
         container.add(levelSelectPanel, "LEVEL_SELECT");
         setContentPane(container);
+        menuPanel.refresh(SaveManager.getHighScore());
         cardLayout.show(container, "MENU");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +103,7 @@ public class GameView extends JFrame implements KeyListener, GameEventListener {
 
     private void showMenu() {
         heldKeys.clear();
-        controller.resume();
+        controller.pause();
         menuPanel.refresh(SaveManager.getHighScore());
         cardLayout.show(container, "MENU");
     }
