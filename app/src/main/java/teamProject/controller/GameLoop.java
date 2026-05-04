@@ -3,7 +3,6 @@ package teamProject.controller;
 import teamProject.view.GameView;
 
 public class GameLoop {
-    // enum for game state
     public enum GameStatus {
         RUNNING,
         STOPPED
@@ -15,13 +14,15 @@ public class GameLoop {
     private GameStatus status;
     private int tickRate;
 
+    // --- Lifecycle ---
+
     public GameLoop(int level) {
         controller = new GameController(level);
         status = GameStatus.STOPPED;
         tickRate = DEFAULT_TPS;
     }
 
-    public void setTickRate(int tps) {
+    void setTickRate(int tps) {
         tickRate = tps;
     }
 
@@ -32,7 +33,7 @@ public class GameLoop {
         status = GameStatus.RUNNING;
     }
 
-    public void stop() {
+    void stop() {
         status = GameStatus.STOPPED;
     }
 
@@ -40,31 +41,9 @@ public class GameLoop {
         return status == GameStatus.RUNNING;
     }
 
-    public void update() {
-        // update logic (time/score)
-        controller.timeUpdate();
-        controller.scoreUpdate();
-        controller.updateEnemies();
-    }
+    // --- Loop ---
 
-    public void render() {
-        // render game state (using UI)
-        controller.updateScoreDisplay();
-        controller.updateHealthDisplay();
-        controller.renderFrame();
-    }
-
-    public void processInput(char input) {
-        switch (input) {
-            case 'W', 'A', 'S', 'D' -> controller.tryPlayerMove(input);
-            case 'Q' -> stop(); // pause
-        }
-    }
-
-    // constant updates to game state
-    // i.e. time/score calculations/enemy movement
     public void processGameLoop() {
-        // logic for updating game state here
         long tickDuration = 1_000_000_000L / tickRate;
         long nextTick = System.nanoTime();
         while (isGameRunning()) {
@@ -73,19 +52,36 @@ public class GameLoop {
                 update();
                 render();
                 nextTick += tickDuration;
-            }
-            else {
+            } else {
                 long sleepMs = (nextTick - now) / 1_000_000;
                 if (sleepMs > 0) {
                     try {
                         Thread.sleep(sleepMs);
-                    }
-                    catch (InterruptedException e) {
+                    } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;
                     }
                 }
             }
         }
+    }
+
+    // --- Per-tick ---
+
+    void update() {
+        if (controller.isGameEnded() || controller.isPaused()) {
+            return;
+        }
+        controller.timeUpdate();
+        controller.scoreUpdate();
+        controller.updateEnemies();
+        controller.updatePlayer();
+    }
+
+    void render() {
+        controller.updateScoreDisplay();
+        controller.updateHealthDisplay();
+        controller.updateTimeDisplay();
+        controller.renderFrame();
     }
 }

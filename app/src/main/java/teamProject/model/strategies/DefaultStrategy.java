@@ -9,4 +9,9 @@ public class DefaultStrategy extends PowerStrategy {
 
     @Override
     public void remove(PlayerEntity player) {}
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }

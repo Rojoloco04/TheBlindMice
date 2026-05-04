@@ -1,14 +1,14 @@
 package teamProject.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import teamProject.model.tiles.TileMap;
 
-import java.util.ArrayList;
-
 public class Game {
-    public static final long MAX_SCORE = 10000; // constant for max score
-    public static final long HEALTH_MULTIPLIER = 1000; // score bonus for each heart
+    public static final long MAX_SCORE = 10000;
+    public static final long HEALTH_MULTIPLIER = 1000;
+
     private long startTime;
     private long timeElapsed;
     private long score;
@@ -16,7 +16,8 @@ public class Game {
     private List<EnemyEntity> enemies;
     private TileMap tiles;
 
-    // constructor
+    // --- Lifecycle ---
+
     public Game() {
         startTime = System.nanoTime();
         timeElapsed = 0;
@@ -24,6 +25,16 @@ public class Game {
         letterBank = new ArrayList<>();
         enemies = new ArrayList<>();
     }
+
+    public void reset() {
+        startTime = System.nanoTime();
+        timeElapsed = 0;
+        score = 0;
+        letterBank.clear();
+        enemies.clear();
+    }
+
+    // --- Letter Bank ---
 
     public void addLetter(char c) {
         letterBank.add(c);
@@ -38,6 +49,8 @@ public class Game {
             letterBank.remove(Character.valueOf(c));
         }
     }
+
+    // --- Timing & Scoring ---
 
     public long getStartTime() {
         return startTime;
@@ -58,6 +71,8 @@ public class Game {
     public void setScore(long newScore) {
         score = newScore;
     }
+
+    // --- Tiles & Enemies ---
 
     public TileMap getTiles() {
         return tiles;

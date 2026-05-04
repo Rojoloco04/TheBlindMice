@@ -1,5 +1,6 @@
 package teamProject.model;
-// a simple coordinate structure for tracking position of entities
+
+/** A simple coordinate structure for tracking position of entities. */
 public class Coordinate {
     private double x;
     private double y;
@@ -29,10 +30,10 @@ public class Coordinate {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Coordinate)) return false; // object is not a coordinate
+        if (!(obj instanceof Coordinate)) return false;
         Coordinate other = (Coordinate)obj;
         return (Double.compare(x, other.x) == 0 &&
-                Double.compare(y, other.y) == 0); // make sure coordinates match
+                Double.compare(y, other.y) == 0);
     }
 
     // required by equals/hashCode contract

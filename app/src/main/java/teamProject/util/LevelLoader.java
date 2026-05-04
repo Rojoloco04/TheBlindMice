@@ -3,8 +3,11 @@ package teamProject.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import teamProject.model.*;
-import teamProject.model.tiles.*;
+import teamProject.model.Coordinate;
+import teamProject.model.EnemyEntity;
+import teamProject.model.Game;
+import teamProject.model.tiles.TileFactory;
+import teamProject.model.tiles.TileMap;
 
 public class LevelLoader {
     public static void load(int level, Game game) {

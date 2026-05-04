@@ -13,6 +13,10 @@ public class DestructibleTile implements Tile {
         return !destroyed;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
     public void onPlayerContact(PlayerEntity player) {
         if (player.canBreakTiles()) { // large player is able to destroy DestructibleTiles
             destroyed = true;

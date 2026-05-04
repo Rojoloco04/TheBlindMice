@@ -1,14 +1,17 @@
 package teamProject.model.tiles;
 
-import java.io.*;
-import java.util.*;
-import teamProject.model.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import teamProject.model.Coordinate;
 
 public class TileFactory {
-    // convert CSV to actual tiles
     public static TileMap fromCSV(int level) {
         List<List<String>> rows = new ArrayList<>();
-        // create a new input stream for CSV file, bufferedReader to read the file
         InputStream is = TileFactory.class.getResourceAsStream("/levels/level" + level + ".csv");
         if (is == null) throw new RuntimeException("Level file not found: /levels/level" + level + ".csv");
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
@@ -16,7 +19,7 @@ public class TileFactory {
             while((line = br.readLine()) != null) {
                 List<String> row = new ArrayList<>();
                 for (String v : line.split(",")) {
-                    row.add(v.trim()); // trim prevents whitespace
+                    row.add(v.trim());
                 }
                 rows.add(row);
             }
@@ -27,7 +30,7 @@ public class TileFactory {
         return toTileGrid(rows);
     }
 
-    public static TileMap toTileGrid(List<List<String>> rows) {
+    private static TileMap toTileGrid(List<List<String>> rows) {
         int numRows = rows.size();
         int numCols = rows.get(0).size();
         TileMap map = new TileMap(numRows, numCols);
